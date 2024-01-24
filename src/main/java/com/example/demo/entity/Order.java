@@ -7,27 +7,25 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.Data;
-
 
 @Data
 @Entity
-public class Customer {
-
-	
+@Table(name = "Orders")
+public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
-	private String name;
-	private String address;
-	private String phone;
+ 	private long id;
+	private long totalPrice;
 	
-	@OneToOne
-	private Cart cart; 
+	@ManyToOne
+	private Customer customer;
 	
-	@OneToMany(mappedBy = "customer")                                  
-	private List<Order> orders; 
-	
+	@OneToMany()
+	@JoinColumn(name = "order_id")
+	private List<Food> foods;
 }
