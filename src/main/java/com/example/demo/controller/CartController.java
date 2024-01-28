@@ -2,9 +2,9 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,55 +18,52 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Cart;
 import com.example.demo.entity.Customer;
 import com.example.demo.entity.Food;
-import com.example.demo.repository.CustomerRepository;
 import com.example.demo.service.CartService;
 import com.example.demo.service.CustomerService;
+import com.example.demo.service.FoodService;
 
 @RestController
-@RequestMapping("api/v1/customers")
-public class CustomerController {
-	
+@RequestMapping("api/v1/cart")
+public class CartController {
+
+	@Autowired
+	CartService cartService;
 	@Autowired
 	CustomerService customerService;
 	@Autowired
-	CartService cartService;
+	FoodService foodService;
+
 	@GetMapping()
-	public List<Customer> get() {
-//		Cart cart = cartService.getByid(102);
-//		
-//
-//		System.out.print(cart.getCustomer());
-		return customerService.findAll(); 
+	public List<Cart> get() {
+		return cartService.findAll();
 	}
-	
-	@PostMapping()
-	public ResponseEntity<Customer> save(@RequestBody Customer customer) {
-		return new ResponseEntity<Customer>( customerService.save(customer),HttpStatus.CREATED);  
+
+	@PostMapping("/customer/{customerId}/food/{foodId}")
+	public ResponseEntity<Cart> save(@RequestBody Cart cart, @PathVariable long customerId, @PathVariable long foodId) {
+		Customer customer = customerService.getByid(customerId);
+	    Food food = foodService.getByid(foodId);
+	    cart.setFood(food);
+	    cart.setCustomer(customer);
+	    cart.setQuantity(0);
+		
+		return new ResponseEntity<Cart>(cartService.save(cart), HttpStatus.CREATED);
 	}
 
 	@GetMapping("/{id}")
-	public Customer getByid(@PathVariable("id") long id) {
-		System.out.print(id);
-		return customerService.getByid(id);
-	}
-
-	@DeleteMapping("delete/{id}")
-	public void delete(@PathVariable("id") long id) {
-		customerService.delete(id);
-	}
-	
-	@PutMapping("update/{id}")
-	public ResponseEntity<Customer> update(@PathVariable("id") long id,@RequestBody Customer customer) {
+	public Cart getByid(@PathVariable("id") long id) {
 		
-		return new ResponseEntity<Customer>(customerService.update(id, customer) ,HttpStatus.OK);
+		return cartService.getByid(id);
 	}
-	
-	
 
-	
-	
-	
-	
-	
+	@DeleteMapping("/delete/{id}")
+	public void delete(@PathVariable("id") long id) {
+		cartService.delete(id);
+	}
+
+	@PutMapping("/update/{id}")
+	public ResponseEntity<Cart> update(@PathVariable("id") long id, @RequestBody Cart cart) {
+
+		return new ResponseEntity<Cart>(cartService.update(id, cart), HttpStatus.OK);
+	}
 
 }

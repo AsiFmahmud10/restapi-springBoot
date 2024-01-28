@@ -3,6 +3,10 @@ package com.example.demo.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,9 +27,10 @@ public class Order {
 	private long totalPrice;
 	
 	@ManyToOne
+	@JsonBackReference
 	private Customer customer;
 	
-	@OneToMany()
+	@OneToMany(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "order_id")
-	private List<Food> foods;
+	private List<Cart> carts;
 }
