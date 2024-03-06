@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyEmitter;
 
 import com.example.demo.entity.Cart;
 import com.example.demo.entity.Customer;
@@ -21,6 +22,12 @@ import com.example.demo.entity.Food;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.service.CartService;
 import com.example.demo.service.CustomerService;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("api/v1/customers")
@@ -30,12 +37,11 @@ public class CustomerController {
 	CustomerService customerService;
 	@Autowired
 	CartService cartService;
+	
+	
 	@GetMapping()
 	public List<Customer> get() {
-//		Cart cart = cartService.getByid(102);
-//		
-//
-//		System.out.print(cart.getCustomer());
+
 		return customerService.findAll(); 
 	}
 	

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.Exception.ResourceNotFoundException;
 import com.example.demo.entity.Customer;
 import com.example.demo.repository.CustomerRepository;
 
@@ -29,12 +30,8 @@ public class CustoemrServiceImplimentation implements CustomerService  {
 
 	@Override
 	public Customer getByid(long id) {
-		Optional<Customer> customer = customerRepository.findById(id);
-		if (customer.isEmpty()) {
-			
-		}{
-			return customer.get();
-		}
+		Customer customer = customerRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("id", id, "Customer"));
+		return customer;
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package com.example.demo.Exception;
 
 
 public class ResourceNotFoundException extends RuntimeException{
+	
 	private String fieldName;
 	private long value;
 	private String resourceName;
