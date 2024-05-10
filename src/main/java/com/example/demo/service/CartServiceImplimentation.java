@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Exception.ResourceNotFoundException;
 import com.example.demo.entity.Cart;
-import com.example.demo.entity.Customer;
+import com.example.demo.entity.Item;
+
 import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.CustomerRepository;
 
@@ -18,7 +19,7 @@ public class CartServiceImplimentation implements CartService {
 	CartRepository cartRepository;
 	
 	@Override
-	public List<Cart> findAll() {
+	public List<Cart> getAll() {
 		
 		return cartRepository.findAll();
 	}
@@ -42,17 +43,23 @@ public class CartServiceImplimentation implements CartService {
 	}
 
 	@Override
-	public Cart update(long id, Cart cart) {
-		Cart existedCart = this.getByid(id);
-//		
-//		existedCustomer.setName(customer.getName());
-//		existedCustomer.setAddress(customer.getAddress());
-//		existedCustomer.setPhone(customer.getPhone());
-		
-		
-		return this.save(existedCart);
-		
+	public Cart update(long id, Item order) {
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+//	@Override
+//	public Cart update(long id, Cart cart) {
+//		Order existedCart = this.getByid(id);
+////		
+////		existedCustomer.setName(customer.getName());
+////		existedCustomer.setAddress(customer.getAddress());
+////		existedCustomer.setPhone(customer.getPhone());
+//		
+//		
+//		return this.save(existedCart);
+		
+//	}
 
 
 

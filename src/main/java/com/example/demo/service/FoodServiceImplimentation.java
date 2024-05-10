@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Exception.ResourceNotFoundException;
-import com.example.demo.entity.Customer;
+
 import com.example.demo.entity.Food;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.FoodRepository;
@@ -44,11 +44,12 @@ public class FoodServiceImplimentation implements FoodService {
 
 	@Override
 	public Food update(long id, Food food) {
-		Food existedFood = this.getByid(id);
 		
+		Food existedFood = this.getByid(id);
+
 		existedFood.setName(food.getName());
 		existedFood.setPrice(food.getPrice());
-		
+		existedFood.setAvailability(food.isAvailability());
 		
 		
 		return this.save(existedFood);

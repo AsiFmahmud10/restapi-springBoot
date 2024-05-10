@@ -1,18 +1,16 @@
 package com.example.demo.service;
 
 import java.util.List;
-import org.springframework.stereotype.Service;
+
+import com.example.demo.dto.CartReq;
+import com.example.demo.dto.OrderhistoryResponse;
+import com.example.demo.entity.MyUser;
 import com.example.demo.entity.Order;
 
-
-
 public interface OrderService {
-	List<Order> findAll();
 
-	Order save(Order order);
+	public Order submitOrder(MyUser customer, List<CartReq> cartReq);
 
-	Order getByid(long id);
-
-	void delete(long id);
-
+	public List<Order> getAll(); 
+	public  List<Order> getOrderHistory (MyUser myUser);
 }

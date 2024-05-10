@@ -1,19 +1,17 @@
 package com.example.demo.service;
 
 import java.util.List;
-
+import org.springframework.stereotype.Service;
 import com.example.demo.entity.Cart;
 import com.example.demo.entity.Item;
 
+public interface ItemService {
+	List<Item> findAll();
 
-public interface CartService {
-	List<Cart> getAll();
+	Item save(Item item);
 
-	Cart save(Cart cart);
-
-	Cart getByid(long id);
+	Item getByid(long id);
 
 	void delete(long id);
 
-	Cart update(long id, Item order);
 }
