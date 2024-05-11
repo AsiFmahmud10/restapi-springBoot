@@ -5,13 +5,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Exception.ResourceNotFoundException;
 import com.example.demo.dto.CartReq;
 import com.example.demo.dto.OrderhistoryResponse;
 import com.example.demo.entity.Food;
 import com.example.demo.entity.Item;
 import com.example.demo.entity.MyUser;
 import com.example.demo.entity.Order;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.FoodRepository;
 import com.example.demo.repository.OrderRepository;
@@ -92,6 +92,19 @@ public class OrderServiceImpl implements OrderService {
 //		 
 //		 }
 //		 return orderhistoryResponseList;
+	}
+
+
+
+
+
+
+
+
+	@Override
+	public List<Order> findByCustomer(MyUser customer) {
+		// TODO Auto-generated method stub
+		return orderepository.findByCustomer(customer);
 	}
  
 }

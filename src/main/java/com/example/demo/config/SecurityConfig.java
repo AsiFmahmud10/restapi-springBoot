@@ -2,28 +2,19 @@ package com.example.demo.config;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.demo.auth.JwtAuthenticationFilter;
 import com.example.demo.auth.UserDetailsDoaService;
@@ -47,8 +38,10 @@ public class SecurityConfig {
 		http.headers((cus)-> cus.frameOptions((f)->f.disable()));
 		
 		http.authorizeHttpRequests(
-				(cus) -> cus.requestMatchers("api/v1/auth/**","/h2-console/**").permitAll().
-				anyRequest().authenticated()
+				(cus) ->cus.requestMatchers("api/v1/customers/food/**").permitAll()
+				.requestMatchers("api/v1/admin/**").hasRole("admin")
+				.requestMatchers("api/v1/customers/**").hasRole("user")
+				.anyRequest().permitAll()
 		);
          
 		http.sessionManagement((cus) -> cus.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -57,11 +50,7 @@ public class SecurityConfig {
 		return http.build();
 	}
 
-//	@Bean
-//	UserDetailsService userDetailService() {
-//		
-//		return userDetailsDoaService;
-//	}
+
 
 	@Bean
 	AuthenticationProvider authenticationProvider() {

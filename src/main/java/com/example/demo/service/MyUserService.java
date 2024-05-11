@@ -1,7 +1,12 @@
 package com.example.demo.service;
 
 import java.util.List;
+
+import com.example.demo.dto.JwtReq;
+import com.example.demo.dto.JwtResponse;
+import com.example.demo.dto.CustomerReq;
 import com.example.demo.entity.MyUser;
+import com.example.demo.exception.UserAlradyExistedException;
 
 
 
@@ -18,6 +23,12 @@ public interface MyUserService {
 	MyUser update(long id, MyUser myuser);
 
 	MyUser findByUsername(String name);
+
+	String registerCustomer(CustomerReq customer);
+
+	String authenticateCustomer(JwtReq jwtreq);
+
+	void handleAdminSetup() throws UserAlradyExistedException;
 
 	
 

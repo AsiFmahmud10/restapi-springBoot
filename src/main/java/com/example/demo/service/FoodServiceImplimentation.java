@@ -6,9 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Exception.ResourceNotFoundException;
-
 import com.example.demo.entity.Food;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.FoodRepository;
 
@@ -54,5 +53,23 @@ public class FoodServiceImplimentation implements FoodService {
 		
 		return this.save(existedFood);
 		
+	}
+
+	@Override
+	public List<Food> findByNameLike(String foodname) {
+		
+		return foodRepository.findByNameLike(foodname);
+	}
+
+	@Override
+	public List<Food> getAll() {
+		
+		return foodRepository.findAll();
+	}
+
+	@Override
+	public List<Food> findByNameAndRangOfPrice(String foodname, int start, int end) {
+		
+		return foodRepository.findByNameAndRangOfPrice(foodname, start, end);
 	}
 }

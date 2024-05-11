@@ -13,4 +13,6 @@ public interface OrderService {
 
 	public List<Order> getAll(); 
 	public  List<Order> getOrderHistory (MyUser myUser);
+
+	public List<Order> findByCustomer(MyUser customer);
 }

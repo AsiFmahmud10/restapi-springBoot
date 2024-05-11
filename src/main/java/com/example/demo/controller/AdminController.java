@@ -38,6 +38,7 @@ public class AdminController {
 	final private FoodService foodService;
 	final private CartService cartService;
 	final private OrderService orderService;
+	final private MyUserService myUserService;
 
 	@GetMapping("/item")
 	public ItemDetailsResponse getOrderDetails(Principal principal) {
@@ -45,6 +46,24 @@ public class AdminController {
 
 		return new ItemDetailsResponse(orderList);
 	}
+	
+	
+	
+	 @GetMapping("food/search/{foodname}")
+		public List<Food> searchFood(@PathVariable String foodname) {
+	       
+	    	return  foodService.findByNameLike(foodname);
+		}
+	    
+	  
+	    @GetMapping("food/search/{foodname}/price/{start}/{end}")
+	   	public List<Food> searchFoodByNameAndPrice(@PathVariable String foodname,@PathVariable int start,@PathVariable int end) {
+	    	 
+	       	return  foodService.findByNameAndRangOfPrice(foodname, start, end);
+	   	}
+	
+	
+	
 
 	@GetMapping("/food")
 	public List<Food> getAllFood() {
@@ -56,8 +75,7 @@ public class AdminController {
 
 		return new ResponseEntity<Food>(foodService.save(food), HttpStatus.CREATED);
 	}
-
-	
+     
 
 	@PutMapping("food/update/{id}")
 	public ResponseEntity<Food> updateFood(@PathVariable("id") long id, @RequestBody Food food) {

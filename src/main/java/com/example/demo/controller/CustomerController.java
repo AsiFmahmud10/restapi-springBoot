@@ -66,8 +66,24 @@ public class CustomerController {
 		return customer.getOrders();
 	}
 	
-	
-	
+    @GetMapping("food/search/{foodname}")
+	public List<Food> searchFood(@PathVariable String foodname) {
+       System.out.println("----"+ foodname);
+    	return  foodService.findByNameLike(foodname);
+	}
+    
+    @GetMapping("food")
+   	public List<Food> getAllfood() {
+          
+       	return  foodService.getAll();
+   	}
+    
+    @GetMapping("food/search/{foodname}/price/{start}/{end}")
+   	public List<Food> searchFoodByNameAndPrice(@PathVariable String foodname,@PathVariable int start,@PathVariable int end) {
+    	 
+       	return  foodService.findByNameAndRangOfPrice(foodname, start, end);
+   	}
+   
 	
 //	@PostMapping()
 //	public ResponseEntity<MyUser> addToCart(@RequestBody OrderReq cartreq, Principal principal) {
