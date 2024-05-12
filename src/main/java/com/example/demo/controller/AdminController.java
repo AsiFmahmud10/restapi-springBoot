@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.auth.JwtService;
 import com.example.demo.dto.ItemDetailsResponse;
+import com.example.demo.dto.OrderCompleteReq;
 import com.example.demo.entity.Cart;
 import com.example.demo.entity.Food;
 import com.example.demo.entity.MyUser;
 import com.example.demo.entity.Order;
+import com.example.demo.entity.Status;
 import com.example.demo.service.CartService;
 import com.example.demo.service.FoodService;
 import com.example.demo.service.MyUserService;
@@ -47,6 +49,15 @@ public class AdminController {
 		return new ItemDetailsResponse(orderList);
 	}
 	
+	@PostMapping("/order/complete")
+	public ResponseEntity<String> setOrderComplete(@RequestBody OrderCompleteReq orderCompleteReq ) {
+		
+		Order order = orderService.getByid(orderCompleteReq.getOrderId());
+		order.setStatus(Status.Complete);
+		orderService.update(order);
+		
+		return ResponseEntity.ok("done");
+	}
 	
 	
 	 @GetMapping("food/search/{foodname}")

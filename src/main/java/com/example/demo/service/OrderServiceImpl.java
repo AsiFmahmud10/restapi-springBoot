@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,76 +36,55 @@ public class OrderServiceImpl implements OrderService {
 		 Order order = new Order();
 		 order.setCustomer(customer);
 		 
+		 int orderTotalPrice = 0;
 		 
 		 for( CartReq cartReq : cartReqList ) {
 			 Item item = new Item();
 			 Food food = foodRepository.findById(cartReq.getFoodId()).orElseThrow(()->new ResourceNotFoundException("id",cartReq.getFoodId() , "Food"));
 			 item.setFoodname(food.getName());
-			 item.setFoodPrice(food.getPrice());
+			 item.setFoodUnitPrice(food.getPrice());
 			 item.setQuantity(cartReq.getQuantity());
+			 item.setTotalPrice(food.getPrice() * cartReq.getQuantity());
 			 
 			 items.add(item);
-			 
+			 orderTotalPrice = orderTotalPrice + item.getTotalPrice();
 		 }
 		 
 		 order.setItems(items);
+		 order.setTotalPrice(orderTotalPrice);
+		 order.setTime(LocalDateTime.now());
+		 orderTotalPrice= 0;
+		 
 		 customer.getOrders().add(order);
 		 customerRepository.save(customer);
 		 
 		 return orderepository.save(order);
 	}
-	
-	
-	
-	
-	
-	
-	
 
 	@Override
 	public List<Order> getAll() {
-		// TODO Auto-generated method stub
-		return orderepository.findAll();
+		
+		return orderepository.findAllByOrderByTimeDesc();
 	}
 	
-	public  List<Order> getOrderHistory (MyUser myUser) {
-		
-		return null;
-		
-		
-//		List<OrderhistoryResponse> orderhistoryResponseList = new ArrayList();
-//		
-//		 List <Object[]> objList =   orderepository.findOrderHistory(customerId);
-//		 
-//		 System.out.println(objList);
-//		 
-//		 for( Object[] row : objList ) {
-//			 OrderhistoryResponse orderhistoryResponse = new OrderhistoryResponse();
-//			 
-//			 System.out.println("----"+ row[0]+" "+ row[1]+" "+row[2]);
-//			 orderhistoryResponse.setCustomerId((Long)row[0]);
-//			 orderhistoryResponse.setQuantity((int)row[1]);
-//			 orderhistoryResponse.setTotalPrice((int)row[2]);
-//			 orderhistoryResponse.set((String)row[3]);
-//			 orderhistoryResponse.setPrice((int)row[4]);
-//			 
-//			 orderhistoryResponseList.add(orderhistoryResponse);
-//		 
-//		 }
-//		 return orderhistoryResponseList;
-	}
-
-
-
-
-
-
-
 
 	@Override
 	public List<Order> findByCustomer(MyUser customer) {
-		// TODO Auto-generated method stub
+		
 		return orderepository.findByCustomer(customer);
+	}
+
+
+	@Override
+	public Order getByid(long orderId) {
+		
+		return orderepository.findById(orderId).orElseThrow(()-> new ResourceNotFoundException("id", orderId, "Order"));
+	}
+
+	@Override
+	public void update(Order order) {
+		orderepository.save(order);
+		
 	}
  
 }

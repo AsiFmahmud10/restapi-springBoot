@@ -18,6 +18,8 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.exception.UserAlradyExistedException;
 import com.example.demo.repository.CustomerRepository;
 
+import lombok.Value;
+
 
 @Service
 public class MyuserServiceImplimentation implements MyUserService {
@@ -119,19 +121,22 @@ public class MyuserServiceImplimentation implements MyUserService {
 	
 	 public void handleAdminSetup() throws UserAlradyExistedException {
 			
-		    String admin_password = "password";
-			String admin_username = "admin";
-			
+		 	String adminUsername = "admin";
+			String adminPassword = "password";
+		 	
+		 	
 			MyUser admin = new MyUser();
-			admin.setUsername(admin_username);
+			admin.setUsername(adminUsername);
 			admin.setRole("admin");
-			admin.setPassword(passwordEncoder.encode(admin_password));
+			admin.setPassword(passwordEncoder.encode( adminPassword ));
 			
 			
-			if( myUserRepository.findByUsername(admin_username).isEmpty()) {
-					myUserRepository.save(admin);	
+			if( myUserRepository.findByUsername(adminUsername).isEmpty()) {
+					myUserRepository.save(admin);
+					System.out.print("admin is up");
 			 }
 			
+			System.out.print("admin is already present ");
 					
 				
 	 }

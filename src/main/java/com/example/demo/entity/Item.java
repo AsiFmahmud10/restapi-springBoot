@@ -25,6 +25,6 @@ public class Item {
     
 	//to avoid  incosistancy of info as food name can be changed latetr
 	private String foodname;  
-	private int foodPrice; 
+	private int foodUnitPrice; 
 
 }

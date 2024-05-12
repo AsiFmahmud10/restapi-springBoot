@@ -12,5 +12,6 @@ import com.example.demo.entity.Order;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 	
 	List<Order> findByCustomer(MyUser customer);
+	List<Order> findAllByOrderByTimeDesc();
 	
 }

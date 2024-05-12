@@ -46,9 +46,9 @@ public class CustomerController {
 	
 	
 	private final MyUserService myUserService;
-	private final CartService cartService;
 	private final FoodService foodService;
 	private final OrderService orderService;
+
 	
 	
 	@PostMapping("/order/submit")
@@ -68,11 +68,11 @@ public class CustomerController {
 	
     @GetMapping("food/search/{foodname}")
 	public List<Food> searchFood(@PathVariable String foodname) {
-       System.out.println("----"+ foodname);
+       
     	return  foodService.findByNameLike(foodname);
 	}
     
-    @GetMapping("food")
+    @GetMapping("/food")
    	public List<Food> getAllfood() {
           
        	return  foodService.getAll();
@@ -85,35 +85,5 @@ public class CustomerController {
    	}
    
 	
-//	@PostMapping()
-//	public ResponseEntity<MyUser> addToCart(@RequestBody OrderReq cartreq, Principal principal) {
-//		
-//		MyUser customer = myUserService.findByUsername(principal.getName());
-//		Food food = foodService.getByid(cartreq.getFoodId());
-//		Item order = new Item();
-//		order.setFood(food);
-//		
-//	  
-//		if(customer.getCart() == null) {
-//			
-//			Cart newCart = new Cart();
-//			newCart.getItems().add(order);
-//			newCart.setMyuser(customer);
-//			
-//			customer.setCart(newCart);
-//		}else {
-//			customer.getCart().getItems().add(order);
-//		}
-//		
-//		
-//		return new ResponseEntity<MyUser>( myUserService.save(customer),HttpStatus.CREATED);  
-//	}
-     
-	
-//	@PutMapping("/update")
-//	public ResponseEntity<MyUser> update(Principal principal, @RequestBody MyUser customerReq) {
-//		MyUser customer = myUserService.findByUsername(principal.getName());
-//		return new ResponseEntity<MyUser>(myUserService.update(customer.getId(), customerReq) ,HttpStatus.OK);
-//	}
 	
 }

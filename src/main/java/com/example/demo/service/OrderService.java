@@ -10,9 +10,11 @@ import com.example.demo.entity.Order;
 public interface OrderService {
 
 	public Order submitOrder(MyUser customer, List<CartReq> cartReq);
-
 	public List<Order> getAll(); 
-	public  List<Order> getOrderHistory (MyUser myUser);
-
 	public List<Order> findByCustomer(MyUser customer);
+	public Order getByid(long orderId);
+	public void update(Order order);
+
+	
+
 }

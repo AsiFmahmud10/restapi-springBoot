@@ -29,7 +29,7 @@ public class AuthController {
 
 	
 
-	@PostMapping("/users")
+	@PostMapping("/reg")
 	public ResponseEntity<JwtResponse> register(@RequestBody CustomerReq customerReq) {
         
 		return new ResponseEntity<JwtResponse>(new JwtResponse(myUserService.registerCustomer(customerReq)) , HttpStatus.CREATED);
