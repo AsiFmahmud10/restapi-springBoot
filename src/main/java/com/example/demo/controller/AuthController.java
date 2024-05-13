@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.auth.JwtService;
 import com.example.demo.dto.JwtReq;
 import com.example.demo.dto.JwtResponse;
+import com.example.demo.exception.UserAlradyExistedException;
 import com.example.demo.dto.CustomerReq;
 import com.example.demo.service.MyUserService;
 
@@ -30,7 +31,7 @@ public class AuthController {
 	
 
 	@PostMapping("/reg")
-	public ResponseEntity<JwtResponse> register(@RequestBody CustomerReq customerReq) {
+	public ResponseEntity<JwtResponse> register(@RequestBody CustomerReq customerReq) throws UserAlradyExistedException {
         
 		return new ResponseEntity<JwtResponse>(new JwtResponse(myUserService.registerCustomer(customerReq)) , HttpStatus.CREATED);
 	}

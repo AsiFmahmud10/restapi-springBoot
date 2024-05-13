@@ -77,28 +77,26 @@ public class MyuserServiceImplimentation implements MyUserService {
 	}
 
 	@Override
-	public String registerCustomer(CustomerReq customerReq) {
+	public String registerCustomer(CustomerReq customerReq) throws UserAlradyExistedException {
 		
-		try {
-			myUserRepository.findByUsername(customerReq.getUsername()).get();
-		   
-		    
-		}catch(NoSuchElementException e ) {
-			
-			MyUser customer = new MyUser();
-			
-			customer.setUsername(customerReq.getUsername());
-			customer.setPassword(passwordEncoder.encode(customerReq.getPassword()));
-			customer.setAddress(customerReq.getAddress());
-			customer.setPhone(customerReq.getPhone());
-			customer.setRole("user");
-			
-			myUserRepository.save(customer);
-			String jwtToken = jwtService.generateToken(customer.getUsername());
-			
-			return jwtToken;
-		}
-		    return null;
+		
+			if (myUserRepository.findByUsername(customerReq.getUsername()).isEmpty()) {
+				MyUser customer = new MyUser();
+				
+				customer.setUsername(customerReq.getUsername());
+				customer.setPassword(passwordEncoder.encode(customerReq.getPassword()));
+				customer.setAddress(customerReq.getAddress());
+				customer.setPhone(customerReq.getPhone());
+				customer.setRole("user");
+				
+				myUserRepository.save(customer);
+				String jwtToken = jwtService.generateToken(customer.getUsername());
+				
+				return jwtToken;
+			}else {
+				throw new UserAlradyExistedException(customerReq.getUsername());
+			}
+		
 	}
 
 	@Override
@@ -133,10 +131,11 @@ public class MyuserServiceImplimentation implements MyUserService {
 			
 			if( myUserRepository.findByUsername(adminUsername).isEmpty()) {
 					myUserRepository.save(admin);
-					System.out.print("admin is up");
+					System.out.println("admin is up");
+			 }else {
+				 System.out.println("admin is already present ");
 			 }
 			
-			System.out.print("admin is already present ");
 					
 				
 	 }

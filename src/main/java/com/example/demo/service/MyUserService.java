@@ -24,7 +24,7 @@ public interface MyUserService {
 
 	MyUser findByUsername(String name);
 
-	String registerCustomer(CustomerReq customer);
+	String registerCustomer(CustomerReq customer)throws UserAlradyExistedException;
 
 	String authenticateCustomer(JwtReq jwtreq);
 

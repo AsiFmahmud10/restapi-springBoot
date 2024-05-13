@@ -42,7 +42,7 @@ public class AdminController {
 	final private OrderService orderService;
 	final private MyUserService myUserService;
 
-	@GetMapping("/item")
+	@GetMapping("/order")
 	public ItemDetailsResponse getOrderDetails(Principal principal) {
 		List<Order> orderList = orderService.getAll();
 

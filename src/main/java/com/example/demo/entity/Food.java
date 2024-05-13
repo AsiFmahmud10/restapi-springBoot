@@ -15,7 +15,7 @@ public class Food {
 	private long id;
 	private String name;
 	private int price;
-	private boolean availability;
+	private boolean availability = true;
 	
 	
 }
