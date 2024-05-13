@@ -1,0 +1,31 @@
+= Restaurant Management Api
+
+`` Spring Boot ``-`` Jwt `` - `` Role Based Authorization `` - `` Data JPA `` -`` Maven ``
+`` Golbal Exception Handling `` `` Custom Exception ``  `` MVC `` 
+`` Spring Security ``
+
+=== Authenticateion and Authorization
+* Token Based Authentication (JWT)
+* Role  Based Autherization
+
+
+
+=== Admin
+*  login 
+*  create food, update food , get all foods. 
+*  search food by name.
+*  search food by name and range of price.
+*  get all customer order details.
+
+=== Customer
+* get all foods.
+* search food by name.
+* search food by name and range of price.
+* Submit order.
+* view Order History.
+
+=== Unregistered User
+* get all foods.
+* search food by names
+* search food by name and range of price.
+
