@@ -15,7 +15,8 @@
 *  create food, update food , get all foods. 
 *  search food by name.
 *  search food by name and range of price.
-*  get all customer order details.
+*  get all  order details of customers.
+*  change order status of a customer.
 
 === Customer
 * get all foods.
